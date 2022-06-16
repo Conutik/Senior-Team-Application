@@ -9,6 +9,13 @@ module.exports = {
         delete require.cache[require.resolve('../../../../Config')]
         let config = require('../../../../Config')
         await interaction.deferReply({ ephemeral: true })
+        /* Checking for cooldown */
+        let userData = await mongo.findOne({ _id: `${interaction.user.id}-cd` })
+        if(userData && userData.cd > Date.now()) {
+            let cdEmbed = new MessageEmbed().setColor("RED").setTitle("ERROR").setDescription(`You can send another invite <t:${Math.floor(userData.cd/1000)}:R>`)
+            return interaction.editReply({ embeds: [cdEmbed] })
+        }
+
         let user = interaction.options.getUser("user");
         let data = await mongo.findOne({ _id: user.id })
         if(data && data.acceptedInvite) return interaction.editReply({ embeds: [ new MessageEmbed().setColor("RED").setTitle("ERROR").setDescription("User has already accepted an invite!") ] })
@@ -42,6 +49,7 @@ module.exports = {
         let ms = await user.send({ embeds: [embed], components: [row] }).catch(e => {
             return interaction.editReply({ embeds: [ new MessageEmbed().setColor("RED").setTitle("ERROR").setDescription("Cannot send user a message") ] })
         })
+        await mongo.updateOne({ _id: `${interaction.user.id}-cd` }, { $set: { cd: Date.now()+config.cooldownTime } }, { upsert: true })
         await mongo.updateOne({ _id: user.id }, { $set: { msgId: ms.id, acceptedInvite: false, status: "Waiting" } }, { upsert: true })
         interaction.editReply({ content: "Sent an invite!" })
     }

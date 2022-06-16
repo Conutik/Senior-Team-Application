@@ -34,5 +34,6 @@ module.exports = {
         showTimestamp: true,
         ephemeral: false // Should the embed be shown as a public image or a private image?
     },
-    invitationChannel: "" // Channel which sends whether an invitation was accepted or denied.
+    invitationChannel: "", // Channel which sends whether an invitation was accepted or denied.
+    cooldownTime: 300000 // Cooldown in milliseconds in between each invite sent.
 }
