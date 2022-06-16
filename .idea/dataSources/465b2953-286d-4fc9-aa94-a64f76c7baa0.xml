@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@general.n5vc1.mongodb.net">
+  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.31">
+    <root id="1">
+      <ServerVersion>5.0.8</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="bot"/>
+    <schema id="3" parent="1" name="stats"/>
+    <schema id="4" parent="1" name="admin"/>
+    <schema id="5" parent="1" name="local"/>
+    <table id="6" parent="2" name="link"/>
+    <table id="7" parent="3" name="tokens"/>
+    <table id="8" parent="5" name="clustermanager"/>
+    <table id="9" parent="5" name="me"/>
+    <table id="10" parent="5" name="oplog.rs"/>
+    <table id="11" parent="5" name="replset.election"/>
+    <table id="12" parent="5" name="replset.initialSyncId"/>
+    <table id="13" parent="5" name="replset.minvalid"/>
+    <table id="14" parent="5" name="replset.oplogTruncateAfterPoint"/>
+    <table id="15" parent="5" name="startup_log"/>
+    <column id="16" parent="6" name="_id">
+      <DataType>String|12s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="17" parent="6" name="level">
+      <DataType>Int32|4s</DataType>
+      <Position>2</Position>
+    </column>
+    <column id="18" parent="6" name="linkedTo">
+      <DataType>String|12s</DataType>
+      <Position>3</Position>
+    </column>
+    <column id="19" parent="6" name="uuid">
+      <DataType>String|12s</DataType>
+      <Position>4</Position>
+    </column>
+  </database-model>
+</dataSource>
